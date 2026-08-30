@@ -1,0 +1,57 @@
+name: Build und Release
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      DevExpress_License: ${{ secrets.DevExpress_License }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: DevExpress-Lizenzdatei
+        shell: pwsh
+        run: |
+          if ([string]::IsNullOrWhiteSpace($env:DevExpress_License)) {
+            throw "Repository-Secret 'DevExpress_License' fehlt. Settings → Secrets and variables → Actions."
+          }
+          $basePath = Join-Path $env:APPDATA "DevExpress"
+          New-Item -ItemType Directory -Path $basePath -Force | Out-Null
+          $licensePath = Join-Path $basePath "DevExpress_License.txt"
+          [System.IO.File]::WriteAllText($licensePath, $env:DevExpress_License)
+
+      - name: .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Publish win-x64
+        run: dotnet publish "PDF-Umbenennen/PDF-Umbenennen.csproj" --configuration Release --runtime win-x64 --self-contained true --disable-build-servers --output ./publish
+
+      - name: ZIP
+        shell: pwsh
+        run: Compress-Archive -Path ./publish/* -DestinationPath ./PDF-Umbenennen-win-x64.zip -Force
+
+      - name: Artefakt
+        uses: actions/upload-artifact@v4
+        with:
+          name: PDF-Umbenennen-win-x64
+          path: ./PDF-Umbenennen-win-x64.zip
+
+      - name: GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: PDF-Umbenennen-win-x64.zip
+          generate_release_notes: true
