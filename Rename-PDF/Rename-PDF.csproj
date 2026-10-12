@@ -9,6 +9,7 @@
     <AssemblyName>PDF-Umbenennen</AssemblyName>
     <ApplicationHighDpiMode>SystemAware</ApplicationHighDpiMode>
     <ApplicationTitle>PDF-Umbenennen</ApplicationTitle>
+    <Version>1.1.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DevExpress.Win.PdfViewer" Version="26.1.4" />
