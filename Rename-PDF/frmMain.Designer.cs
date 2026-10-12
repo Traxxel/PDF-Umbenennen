@@ -2,7 +2,7 @@
 
 namespace PDF_Umbenennen
 {
-    partial class Form1
+    partial class frmMain
     {
         private System.ComponentModel.IContainer? components = null;
 

@@ -6,7 +6,7 @@ using DevExpress.XtraPdfViewer;
 
 namespace PDF_Umbenennen
 {
-    public partial class Form1 : Form
+    public partial class frmMain : Form
     {
         private readonly PdfFilePreviewManager previewManager;
         private string? selectedFolder;
@@ -15,7 +15,7 @@ namespace PDF_Umbenennen
 
         private bool lastFolderRestored;
 
-        public Form1()
+        public frmMain()
         {
             InitializeComponent();
             this.previewManager = new PdfFilePreviewManager(this.pdfViewer);
