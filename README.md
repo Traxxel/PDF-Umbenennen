@@ -1,4 +1,4 @@
-# PDF-Umbenennen
+# Rename-PDF
 
 Windows-Desktopprogramm zum **sicheren Umbenennen von PDF-Dateien** mit integrierter Vorschau.
 
@@ -23,7 +23,7 @@ Ordner wählen, Datei in der Liste anklicken, Inhalt prüfen, neuen Namen vergeb
 ## Bauen
 
 ```powershell
-dotnet build PDF-Umbenennen.slnx
+dotnet build Rename-PDF.slnx
 ```
 
 Die Anwendung selbst mit `dotnet run` bzw. über Visual Studio starten.
@@ -35,7 +35,7 @@ Die Pipeline baut eine **self-contained** Windows-x64-Version (`.NET` ist in der
 1. Im Repo: **Settings → Secrets and variables → Actions → New repository secret**
 2. Name: `DevExpress_License`  
    Wert: Inhalt von `DevExpress_License.txt` (Download Manager, nicht ins Git).
-3. Jeder Push auf `main` legt unter **Actions** ein Artefakt `PDF-Umbenennen-win-x64` ab.
+3. Jeder Push auf `main` legt unter **Actions** ein Artefakt `Rename-PDF-win-x64` ab.
 4. Ein **Release zum Herunterladen**: Tag anlegen, z. B. `git tag v1.0.0` und `git push origin v1.0.0`. Die ZIP erscheint unter **Releases**.
 
 Ohne Secret schlägt der Build fehl (gewollt). Trial-Keys erzeugen Wasserzeichen — für öffentliche Releases eine gekaufte Lizenz verwenden.
@@ -43,7 +43,7 @@ Ohne Secret schlägt der Build fehl (gewollt). Trial-Keys erzeugen Wasserzeichen
 ## Bedienung
 
 1. **Verzeichnis wählen** — alle `*.pdf` im Ordner erscheinen in der Liste.
-2. Eine Datei anklicken — die Vorschau lädt eine Kopie unter `%TEMP%\PDF-Umbenennen\`.
+    2. Eine Datei anklicken — die Vorschau lädt eine Kopie unter `%TEMP%\Rename-PDF\`.
 3. Bei Bedarf zoomen (**auf Breite** / **auf Höhe** / **Ganze Seite**).
 4. Den gewünschten Namen in der Textbox eintragen (mit oder ohne `.pdf`).
 5. **Umbenennen** — existiert der Zielname schon oder schlägt das Umbenennen fehl, bleibt das Original unverändert.
@@ -54,9 +54,9 @@ Ohne Secret schlägt der Build fehl (gewollt). Trial-Keys erzeugen Wasserzeichen
 | --- | --- |
 | UI | WinForms |
 | Zielframework | `net10.0-windows` |
-| Solution | `PDF-Umbenennen.slnx` |
+| Solution | `Rename-PDF.slnx` |
 | PDF-Anzeige | DevExpress `PdfViewer` |
-| Letztes Verzeichnis | `%LocalAppData%\PDF-Umbenennen\last-folder.txt` |
+| Letztes Verzeichnis | `%LocalAppData%\Rename-PDF\last-folder.txt` |
 
 ## DevExpress-Lizenz
 
